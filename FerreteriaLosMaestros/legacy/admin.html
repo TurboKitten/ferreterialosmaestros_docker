@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Admin | Ferretería Los Maestros</title>
+
+        <!-- diseño -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+        <link href="assets/css/style.css" rel="stylesheet">
+
+    </head>
+
+    <body class="bg-light">
+
+        <!-- Encabezado con navegación principal -->
+        <header class="navbar-ferreteria sticky-top">
+            <div class="container d-flex justify-content-between align-items-center">
+                <a href="index.html" class="brand-logo">
+                    <div class="brand-icon">
+                    <i class="bi bi-tools"></i>
+                    </div>
+                    <span>Los Maestros</span>
+                </a>
+
+                <!-- Enlaces de navegación -->
+                <nav class="d-none d-md-flex align-items-center gap-3">
+                    <a href="index.html" class="nav-link fw-semibold">Inicio</a>
+                    <a href="index.html#catalogo" class="nav-link fw-semibold">Catálogo</a>
+                    <a href="cotizacion.html" class="nav-link fw-semibold">Cotización</a>
+                    <a href="contacto.html" class="nav-link fw-semibold text-primary">Contacto</a>
+                </nav>
+                <!-- Botón de Acceso -->
+                <div>
+                    <a href="login.html" class="btn btn-warning fw-bold shadow-sm" id="btnIrLogin">
+                    <i class="bi bi-person-lock me-1"></i> Acceso Usuarios
+                    </a>
+                </div>
+            </div>
+        </header>
+
+    <main class="container py-4">
+
+        <!--Resumen  -->
+        <div class="row g-3 mb-4">
+        <div class="col-12 col-md-4">
+            <div class="kpi-card shadow-sm border-start border-primary border-4">
+            <div class="text-muted small fw-bold">TOTAL PRODUCTOS EN BODEGA</div>
+            <div class="kpi-numero text-primary" id="kpiTotalProductos">8</div>
+            <small class="text-muted">Artículos registrados en sistema</small>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="kpi-card shadow-sm border-start border-danger border-4">
+            <div class="text-muted small fw-bold">ALERTAS DE STOCK CRÍTICO</div>
+            <div class="kpi-numero text-danger" id="kpiStockCritico">3</div>
+            <small class="text-danger fw-semibold">Requieren reposición urgente</small>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="kpi-card shadow-sm border-start border-success border-4">
+            <div class="text-muted small fw-bold">CONTRATISTAS VINCULADOS</div>
+            <div class="kpi-numero text-success">3</div>
+            <small class="text-muted">Líneas de crédito activas</small>
+            </div>
+        </div>
+        </div>
+
+        <!-- Alertas en pantalla -->
+        <div id="alertaAdmin"></div>
+
+        <!-- Control de inventario -->
+        <section id="Inventario" class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3">
+                <h2 class="h5 fw-bold mb-0 text-white"><i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>Inventario y Stock Crítico</h2>
+                <span class="badge bg-secondary">Bodega Central</span>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0 table-custom">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Producto</th>
+                                <th>Categoría</th>
+                                <th class="text-center">Stock Actual</th>
+                                <th class="text-center">Stock Mínimo</th>
+                                <th class="text-center">Estado</th>
+                                <th class="text-center">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaStockAdmin">
+                        <!-- Renderizado por js/admin.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer bg-light small text-muted">
+                Ajusta la cantidad de producto y luego presiona<strong>"+"</strong> o <strong>"-"</strong>para simular el ingreso o retiro de mercadería a bodega.
+            </div>
+        </section>
+
+        <!-- Sección 2: Cuentas Corrientes de Contratistas -->
+        <section id="Ceuntas corrientes" class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3">
+                <h2 class="h5 fw-bold mb-0 text-white"><i class="bi bi-cash-coin text-warning me-2"></i>Cuentas Corrientes de Contratistas</h2>
+                <span class="badge bg-info text-dark">Crédito a 30 días</span>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0 table-custom">
+                        <thead>
+                            <tr>
+                                <th>Empresa Contratista</th>
+                                <th>RUT</th>
+                                <th class="text-end">Línea de Crédito</th>
+                                <th class="text-end">Deuda Actual</th>
+                                <th class="text-center">Estado</th>
+                                <th class="text-center">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaCuentasAdmin">
+                        <!-- Renderizado por js/admin.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer bg-light small text-muted">
+                Presiona <strong>"Abonar $500.000"</strong> para registrar un pago a la cuenta corriente del contratista.
+            </div>
+        </section>
+
+        <!-- Sección 3: Personal y Usuarios del Sistema -->
+        <section id="pERSONAL" class="card shadow-sm border-0">
+            <div class="card-header bg-dark text-white py-3">
+                <h2 class="h5 fw-bold mb-0 text-white"><i class="bi bi-people-fill text-warning me-2"></i>Personal y Roles del Sistema</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive mb-3">
+                <table class="table table-bordered align-middle mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Usuario</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tablaUsuariosAdmin">
+                    <!-- Renderizado por js/admin.js -->
+                    </tbody>
+                </table>
+                </div>
+
+                <!-- Formulario sencillo para agregar usuario -->
+                <div class="bg-light p-3 rounded border">
+                <h3 class="h6 fw-bold mb-2">Registrar Nuevo Empleado o Acceso</h3>
+                <form id="formNuevoUsuario" class="row g-2 align-items-end" novalidate>
+                    <div class="col-12 col-md-4">
+                    <label for="nuevoNombre" class="form-label small">Nombre Completo <span class="req">*</span></label>
+                    <input type="text" class="form-control form-control-sm" id="nuevoNombre" required placeholder="Ej: Pedro Valdés">
+                    </div>
+                    <div class="col-12 col-md-3">
+                    <label for="nuevoUsuario" class="form-label small">Usuario <span class="req">*</span></label>
+                    <input type="text" class="form-control form-control-sm" id="nuevoUsuario" required placeholder="Ej: pvaldes">
+                    </div>
+                    <div class="col-12 col-md-3">
+                    <label for="nuevoPassword" class="form-label small">Contraseña <span class="req">*</span>
+                    </label><input type="password" class="form-control form-control-sm" id="nuevoPassword" required placeholder="Contraseña">
+                    </div>
+                    <div class="col-12 col-md-3">
+                    <label for="nuevoRol" class="form-label small">Rol asignado <span class="req">*</span></label>
+                    <select class="form-select form-select-sm" id="nuevoRol" required>
+                        <option value="Vendedor">Vendedor</option>
+                        <option value="Contratista">Contratista</option>
+                        <option value="Administrador">Administrador</option>
+                    </select>
+                    </div>
+                    <div class="col-12 col-md-2">
+                    <button type="submit" class="btn btn-sm btn-primary w-100 fw-bold">
+                        <i class="bi bi-plus-circle me-1"></i> Agregar
+                    </button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/sesion.js"></script>
+    <script src="assets/js/index.js"></script>
+    <script src="assets/js/admin.js"></script>
+    </body>
+</html>

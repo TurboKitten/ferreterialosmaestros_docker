@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang ="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ferreteria Los Maestros.</title>
+
+        <!-- Diseño -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+        <link href="assets/css/style.css" rel="stylesheet">
+
+    </head>
+    <body>
+     <!-- Barra superior info -->
+        <aside id="barra superior" class="topbar-info" aria-label="Información">
+            <div class="container d-flex flex-wrap justify-content-between align-items-center">
+                <div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Panamericana+Norte+1498,+Coquimbo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-decoration-none text-reset me-3">
+                        <i class="bi bi-geo-alt-fill text-warning me-1"></i> Panamericana Norte 1498, Coquimbo
+                    </a>
+                    <i class="bi bi-clock-fill text-warning ms-2 me-1"></i> Lunes a Viernes: 08:00 a 19:00 hrs. | Sábados: 08:30 a 14:00 hrs
+                </div>
+                    <a href="tel:+56 9 1234 5678" class="text-decoration-none text-reset me-3">
+                        <i class="bi bi-telephone-fill text-warning me-1"></i> +56 9 1234 5678
+                    </a>
+            </div>
+        </aside>
+
+        <header  id = "Encabezado" class="navbar-ferreteria sticky-top">
+            <div class="container d-flex justify-content-between align-items-center">
+                <a href="index.html" class="brand-logo">
+                    <div class="brand-icon">
+                    <i class="bi bi-tools"></i>
+                    </div>
+                    <span>Los Maestros</span>
+                </a>
+
+                <!-- Enlaces de navegación -->
+                <nav class="d-none d-md-flex align-items-center gap-3">
+                    <a href="index.html" class="nav-link fw-semibold">Inicio</a>
+                    <a href="index.html#catalogo" class="nav-link fw-semibold">Catálogo</a>
+                    <a href="cotizacion.html" class="nav-link fw-semibold">Cotización</a>
+                    <a href="contacto.html" class="nav-link fw-semibold text-primary">Contacto</a>
+                </nav>
+                <!-- Botón de Acceso Usuarios-->
+                <div>
+                    <a href="login.html" class="btn btn-warning fw-bold shadow-sm" id="btnIrLogin">
+                    <i class="bi bi-person-lock me-1"></i> Acceso Usuarios
+                    </a>
+                </div>
+            </div>
+        </header>
+        <!-- cuerpo de la pag-->
+        <main>
+            <section id="inicio" class="hero-simple">
+                <div class="container text-center py-4">
+                        <h1 class="display-6 fw-bold text-white mb-2">Ferretería Los Maestros</h1>
+                        <p class="lead text-light mb-4">Materiales de construcción, herramientas manuales y eléctricas al mejor precio.</p>
+                        <div class="d-flex justify-content-center gap-3">
+                        <a href="#catalogo" class="btn btn-warning fw-bold px-4">Ver Catálogo</a>
+                        <a href="cotizacion.html" class="btn btn-outline-light px-4">Solicitar Cotización</a>
+                        </div>
+                </div>
+                
+                </section>
+            <section id="servicios-seccion" class="py-5 bg-white border-top border-bottom">
+                <div class="container-fluid px-lg-5">
+                    <div class="row g-4 text-center">
+                    <div class="col-12 col-md-4">
+                        <div class="p-4 rounded border h-100">
+                        <div class="text-primary fs-1 mb-3"><i class="bi bi-truck"></i></div>
+                        <h4 class="h5 fw-bold">Despacho Exprés a Faena</h4>
+                        <p class="text-muted small mb-0">Entregamos en tu obra en Santiago y regiones adyacentes en menos de 24 horas con flota propia.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="p-4 rounded border h-100">
+                        <div class="text-warning fs-1 mb-3"><i class="bi bi-cash-coin"></i></div>
+                        <h4 class="h5 fw-bold">Líneas de Crédito Contratista</h4>
+                        <p class="text-muted small mb-0">Cuentas corrientes para empresas constructoras y maestros con facturación mensual consolidada.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="p-4 rounded border h-100">
+                        <div class="text-success fs-1 mb-3"><i class="bi bi-patch-check"></i></div>
+                        <h4 class="h5 fw-bold">Asesoría de Mesón Experto</h4>
+                        <p class="text-muted small mb-0">Cubicamos tus planos de radier, muros o techumbre sin costo adicional con nuestros maestros de mesón.</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </section>
+
+                <section id="catalogo" class="container py-5">
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-2 border-bottom">
+                    <div>
+                        <h2 class="h4 fw-bold mb-0"><i class="bi bi-grid-fill text-primary me-2"></i>Catálogo de Productos</h2>
+                        <small class="text-muted">Precios con IVA incluido. Consulta descuento especial para contratistas.</small>
+                    </div>
+
+                    <!-- Filtro de las cosas ventas-->
+                    <div class="mt-2 mt-md-0">
+                        <select class="form-select" id="filtroCategoria" style="width: auto;">
+                            <option value="todos">Todas las categorías</option>
+                            <option value="electricas">Herramientas Eléctricas</option>
+                            <option value="manuales">Herramientas Manuales</option>
+                            <option value="construccion">Materiales de Construcción</option>
+                            <option value="construccion">Seguridad</option>
+                            <option value="gasfiteria">Gasfitería</option>
+                            <option value="electricidad">Electricidad</option>
+                        </select>
+                    </div>
+                </div>
+                    <div class="row g-4" id="listaProductos">
+
+                <!-- Producto 1 -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card h-100 shadow-sm producto-card" data-codigo="FER-001">
+                        <img src="assets/images/martillo.jpg.jpg" 
+                            class="card-img-top" 
+                            alt="Martillo">
+
+                        <div class="card-body">
+                            <h5 class="card-title">Martillo Profesional</h5>
+                            <p class="card-text mb-1">
+                                <strong>Precio:</strong> $12.990
+                            </p>
+                            <p class="card-text">
+                                <strong>Stock:</strong> <span class="text-success stock-producto" data-codigo="FER-001"></span>
+                            </p>
+                            <button type="button" class="btn btn-primary btn-sm w-100 btn-agregar-carrito" data-codigo="FER-001"><i class = bi bi c-cart-plus me-1></i>Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 2 -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card h-100 shadow-sm producto-card" data-codigo="FER-003">
+                        <img src="assets/images/taladro.jpg.webp" 
+                            class="card-img-top" 
+                            alt="Taladro eléctrico">
+
+                        <div class="card-body">
+                            <h5 class="card-title">Taladro Eléctrico</h5>
+                            <p class="card-text mb-1">
+                                <strong>Precio:</strong> $49.990
+                            </p>
+                            <p class="card-text">
+                                <strong>Stock:</strong> <span class="text-success stock-producto" data-codigo="FER-003"></span>
+                            </p>
+                            <button type="button" class="btn btn-primary btn-sm w-100 btn-agregar-carrito" data-codigo="FER-003"><i class = bi bi c-cart-plus me-1></i>Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 3 -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card h-100 shadow-sm producto-card" data-codigo="FER-002">
+                        <img src="assets/images/destornillador.jpg.webp" 
+                            class="card-img-top" 
+                            alt="Juego de destornilladores">
+
+                        <div class="card-body">
+                            <h5 class="card-title">Juego de Destornilladores</h5>
+                            <p class="card-text mb-1">
+                                <strong>Precio:</strong> $9.990
+                            </p>
+                            <p class="card-text">
+                                <strong>Stock:</strong> <span class="text-success stock-producto" data-codigo="FER-002"></span>
+                            </p>
+                            <button type="button" class="btn btn-primary btn-sm w-100 btn-agregar-carrito" data-codigo="FER-002"><i class = bi bi c-cart-plus me-1></i>Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 4 -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card h-100 shadow-sm producto-card" data-codigo="FER-008">
+                        <img src="assets/images/alicate.jpg.webp" 
+                            class="card-img-top" 
+                            alt="Alicate profesional">
+
+                        <div class="card-body">
+                            <h5 class="card-title">Alicate Profesional</h5>
+                            <p class="card-text mb-1">
+                                <strong>Precio:</strong> $7.990
+                            </p>
+                            <p class="card-text">
+                                <strong>Stock:</strong> <span class="text-success stock-producto" data-codigo="FER-008"></span>
+                            </p>
+                            <button type="button" class="btn btn-primary btn-sm w-100 btn-agregar-carrito" data-codigo="FER-008"><i class = bi bi c-cart-plus me-1></i>Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 5 -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card h-100 shadow-sm producto-card" data-codigo="FER-006">
+                        <img src="assets/images/cemento.jpg.webp" 
+                            class="card-img-top" 
+                            alt="Saco de cemento">
+
+                        <div class="card-body">
+                            <h5 class="card-title">Cemento 25 Kg</h5>
+                            <p class="card-text mb-1">
+                                <strong>Precio:</strong> $5.990
+                            </p>
+                            <p class="card-text">
+                                <strong>Stock:</strong> <span class="text-success stock-producto" data-codigo="FER-006"></span>
+                            </p>
+                            <button type="button" class="btn btn-primary btn-sm w-100 btn-agregar-carrito" data-codigo="FER-006"><i class = bi bi c-cart-plus me-1></i>Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 6 -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card h-100 shadow-sm producto-card" data-codigo="FER-007">
+                        <img src="assets/images/guantes.jpg.webp" 
+                            class="card-img-top" 
+                            alt="Guantes de trabajo">
+
+                        <div class="card-body">
+                            <h5 class="card-title">Guantes de Trabajo</h5>
+                            <p class="card-text mb-1">
+                                <strong>Precio:</strong> $3.490
+                            </p>
+                            <p class="card-text">
+                                <strong>Stock:</strong> <span class="text-success stock-producto" data-codigo="FER-007"></span>
+                            </p>
+                            <button type="button" class="btn btn-primary btn-sm w-100 btn-agregar-carrito" data-codigo="FER-007"><i class = bi bi c-cart-plus me-1></i>Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 7 -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card h-100 shadow-sm producto-card" data-codigo="FER-005">
+                        <img src="assets/images/cinta.jpg.jpg" 
+                            class="card-img-top" 
+                            alt="Cinta métrica">
+
+                        <div class="card-body">
+                            <h5 class="card-title">Cinta Métrica 5 Metros</h5>
+                            <p class="card-text mb-1">
+                                <strong>Precio:</strong> $4.990
+                            </p>
+                            <p class="card-text">
+                                <strong>Stock:</strong> <span class="text-success stock-producto" data-codigo="FER-005"></span>
+                            </p>
+                            <button type="button" class="btn btn-primary btn-sm w-100 btn-agregar-carrito" data-codigo="FER-005"><i class = bi bi c-cart-plus me-1></i>Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 8 -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card h-100 shadow-sm producto-card" data-codigo="FER-004">
+                        <img src="assets/images/sierra.jpg.webp" 
+                            class="card-img-top" 
+                            alt="Sierra circular">
+
+                        <div class="card-body">
+                            <h5 class="card-title">Sierra Circular</h5>
+                            <p class="card-text mb-1">
+                                <strong>Precio:</strong> $69.990
+                            </p>
+                            <p class="card-text">
+                                <strong>Stock:</strong> <span class="text-success stock-producto" data-codigo="FER-004"></span>
+                            </p>
+                            <button type="button" class="btn btn-primary btn-sm w-100 btn-agregar-carrito" data-codigo="FER-004"><i class = bi bi c-cart-plus me-1></i>Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <section id="Mapa" class="container mt-5">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Nuestra Ubicación</h5>
+                    </div>
+                    <div class="card-body p-0">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16926.01379674009!2d-71.34011255204052!3d-29.95184463863857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9691c91a221aa227%3A0xa8b3af2660265f0b!2sFerreter%C3%ADa%20Dimaplac%20Panamericana!5e0!3m2!1ses!2scl!4v1788452633675!5m2!1ses!2scl" 
+                        style="width: 100%; height: 300px; border: 0;" 
+                        loading="lazy">
+                    </iframe>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="footer-corporate text-light bg-dark py-5">
+            <div class="container-fluid px-lg-5">
+                <div class="row g-4">
+
+                    <div class="col-12 col-md-4">
+                        <h5 class="fw-bold text-white mb-3">Ferretería Los Maestros</h5>
+                        <p class="small text-secondary mb-3">
+                        Más de 22 años al servicio de La Serena. Negocio familiar especialista en materiales de construcción, herramientas, gasfitería y electricidad para particulares y contratistas.
+                        </p>
+                        <div class="small text-secondary">
+                        <i class="bi bi-geo-alt text-warning me-1"></i> Panamericana Norte 1498, La Serena<br>
+                        <i class="bi bi-telephone text-warning me-1"></i> +56 9 1234 5678 | contacto@losmaestros.cl
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <h5 class="footer-heading h6 fw-bold text-white mb-3">Categorías</h5>
+                        <ul class="list-unstyled d-flex flex-column gap-2 small">
+                        <li><a href="#catalogo" class="text-secondary text-decoration-none">Herramientas Eléctricas</a></li>
+                        <li><a href="#catalogo" class="text-secondary text-decoration-none">Herramientas Manuales</a></li>
+                        <li><a href="#catalogo" class="text-secondary text-decoration-none">Materiales de construcción</a></li>
+                        <li><a href="#catalogo" class="text-secondary text-decoration-none">Gasfitería</a></li>
+                        <li><a href="#catalogo" class="text-secondary text-decoration-none">Electricidad</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <h5 class="footer-heading h6 fw-bold text-white mb-3">Portales y Accesos</h5>
+                        <ul class="list-unstyled d-flex flex-column gap-2 small">
+                        <li><a href="login.html" class="text-secondary text-decoration-none"> Acceso Personal / Login</a></li>
+                        <li><a href="admin.html" class="text-secondary text-decoration-none"> Portal Administrador / Dueño</a></li>
+                        <li><a href="vendedor.html" class="text-secondary text-decoration-none"> Terminal de Mesón Vendedor</a></li>
+                        <li><a href="contacto.html" class="text-secondary text-decoration-none"> Contacto</a></li>
+                        <li><a href="cotizacion.html" class="text-secondary text-decoration-none"> Cotizaciones</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <h5 class="footer-heading h6 fw-bold text-white mb-3">Horario y Atención</h5>
+                        <p class="small text-light mb-1"><strong>Mesón y Bodega:</strong></p>
+                        <p class="small text-secondary mb-3">Lunes a Viernes: 08:00 a 19:00 hrs.<br>Sábados: 08:30 a 14:00 hrs.</p>
+                        <div class="p-2 bg-black rounded border border-secondary small text-secondary">
+                        <i class="bi bi-credit-card-2-front text-warning me-1"></i>
+                        Aceptamos Efectivo, Transferencia, Tarjetas de Débito/Crédito y Orden de Compra Contratista.
+                        </div>
+                    </div>
+
+                </div>
+                <div class="border-top border-secondary pt-4 mt-5 d-flex flex-wrap justify-content-between align-items-center small text-secondary">
+                <div>&copy; 2026 Ferretería Los Maestros. Todos los derechos reservados.</div>
+                <div>La Serena, Región de Coquimbo</div>
+                </div>
+            </div>
+        </footer>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/sesion.js"></script>
+    <script src="assets/js/index.js"></script>
+    <script src="assets/js/catalogo.js"></script>
+</html>

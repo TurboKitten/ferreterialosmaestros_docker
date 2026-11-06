@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Acceso al Sistema | Ferretería Los Maestros</title>
+
+    <!-- diseño -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <link href="assets/css/style.css" rel="stylesheet">
+  </head>
+
+  <body class="bg-light">
+        <aside id="barra superior" class="topbar-info" aria-label="Información">
+            <div class="container d-flex flex-wrap justify-content-between align-items-center">
+                <div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Panamericana+Norte+1498,+Coquimbo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-decoration-none text-reset me-3">
+                        <i class="bi bi-geo-alt-fill text-warning me-1"></i> Panamericana Norte 1498, Coquimbo
+                    </a>
+                    <i class="bi bi-clock-fill text-warning ms-2 me-1"></i> Lunes a Viernes: 08:00 a 19:00 hrs. | Sábados: 08:30 a 14:00 hrs
+                </div>
+                    <a href="tel:+56 9 1234 5678" class="text-decoration-none text-reset me-3">
+                        <i class="bi bi-telephone-fill text-warning me-1"></i> +56 9 1234 5678
+                    </a>
+            </div>
+        </aside>
+
+
+    <!-- Contenedor del Formulario -->
+    <div id="formulario" class="bg-light">
+        
+        <div class="login-container">
+            <div class="login-box">
+                
+                <!-- Cabecera / Logotipo -->
+                <div class="text-center mb-4">
+                        <div class="brand-icon mx-auto mb-2" style="width: 50px; height: 50px; font-size: 1.5rem;">
+                            <i class="bi bi-tools"></i>
+                        </div>
+                        <h1 class="h4 fw-bold text-dark mb-1">Ferretería Los Maestros</h1>
+                        <p class="text-muted small mb-0">Ingreso a su cuenta.</p>
+                </div>
+
+                <!-- Login -->
+                <form action="#" method="POST">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Nombre de Usuario <span class="req">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Ej: Juan" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña <span class="req">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="••••••••" required>
+                            </div>
+                        </div>
+                            <button type="submit" class="btn btn-primary w-100 py-2 fw-bold mb-3">
+                                <i class="bi bi-box-arrow-in-right me-1"></i> Ingresar al Sistema
+                            </button>
+                    </form>
+                
+                <!-- Enlace ara volver -->
+                <div class="text-center">
+                        <a href="index.html" class="text-decoration-none text-muted small">
+                            <i class="bi bi-arrow-left me-1"></i> Volver a menú principal
+                        </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/sesion.js"></script>
+    <script src="assets/js/login.js"></script>
+  </body>
+</html>

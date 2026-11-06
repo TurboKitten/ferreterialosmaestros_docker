@@ -1,0 +1,224 @@
+    <!DOCTYPE html>
+    <html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Carrito - Ferretería Los Maestros</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+        <link href="assets/css/style.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <aside id="barra superior" class="topbar-info" aria-label="Información">
+            <div class="container d-flex flex-wrap justify-content-between align-items-center">
+                <div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Panamericana+Norte+1498,+Coquimbo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-decoration-none text-reset me-3">
+                        <i class="bi bi-geo-alt-fill text-warning me-1"></i> Panamericana Norte 1498, Coquimbo
+                    </a>
+                    <i class="bi bi-clock-fill text-warning ms-2 me-1"></i> Lunes a Viernes: 08:00 a 19:00 hrs. | Sábados: 08:30 a 14:00 hrs
+                </div>
+                    <a href="tel:+56 9 1234 5678" class="text-decoration-none text-reset me-3">
+                        <i class="bi bi-telephone-fill text-warning me-1"></i> +56 9 1234 5678
+                    </a>
+            </div>
+        </aside>
+
+
+        <!-- Encabezado con navegación principal -->
+        <header class="navbar-ferreteria sticky-top">
+            <div class="container d-flex justify-content-between align-items-center">
+                <a href="index.html" class="brand-logo">
+                    <div class="brand-icon">
+                    <i class="bi bi-tools"></i>
+                    </div>
+                    <span>Los Maestros</span>
+                </a>
+
+                <!-- Enlaces de navegación -->
+                <nav class="d-none d-md-flex align-items-center gap-3">
+                    <a href="index.html" class="nav-link fw-semibold">Inicio</a>
+                    <a href="index.html#catalogo" class="nav-link fw-semibold">Catálogo</a>
+                    <a href="cotizacion.html" class="nav-link fw-semibold">Cotización</a>
+                    <a href="contacto.html" class="nav-link fw-semibold text-primary">Contacto</a>
+                </nav>
+                <!-- Botón de Acceso Usuarios-->
+                <div>
+                    <a href="login.html" class="btn btn-warning fw-bold shadow-sm" id="btnIrLogin">
+                    <i class="bi bi-person-lock me-1"></i> Acceso Usuarios
+                    </a>
+                </div>
+            </div>
+        </header>
+
+    <!-- Contenido principal -->
+    <main class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="fw-bold mb-1">
+                    <i class="bi bi-cart3 me-2"></i>
+                    Mi carrito
+                </h1>
+                <p class="text-muted mb-0">
+                    Revisa tus productos antes de confirmar el pedido.
+                </p>
+            </div>
+            <a href="index.html" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-left me-1"></i>
+                Seguir comprando
+            </a>
+        </div>
+
+        <!-- Carrito -->
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="carritoVacio" class="text-center py-5">
+                    <i class="bi bi-cart-x display-1 text-muted"></i>
+                    <h3 class="mt-3">
+                        Tu carrito está vacío
+                    </h3>
+                    <p class="text-muted">
+                        Agrega productos desde nuestro catálogo para comenzar tu pedido.
+                    </p>
+                    <a href="index.html" class="btn btn-primary">
+                        <i class="bi bi-shop me-1"></i>
+                        Ir al catálogo
+                    </a>
+                </div>
+
+                <!-- tabla de productos -->
+                <div id="contenidoCarrito" class="d-none">
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Código</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Subtotal</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaCarrito">
+                                <!-- los productos se cargarán mediante js -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- resumen -->
+                    <div class="row justify-content-end mt-4">
+                        <div class="col-md-5 col-lg-4">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="fw-bold mb-3">
+                                        Resumen del pedido
+                                    </h5>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Subtotal:</span>
+                                        <span id="subtotalCarrito">$0</span>
+                                    </div>
+                                    <div
+                                        id="descuentoCarritoFila"
+                                        class="d-flex justify-content-between mb-2 d-none">
+                                        <span>Descuento:</span>
+                                        <span id="descuentoCarrito">$0</span>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between">
+                                        <strong>Total:</strong>
+                                        <strong id="totalCarrito">
+                                            $0
+                                        </strong>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        id="btnContinuarCompra"
+                                        class="btn btn-success w-100 mt-4">
+                                        <i class="bi bi-check-circle me-1"></i>
+                                        Continuar con el pedido
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><section id="seccionConfirmacion" class="container pb-5 d-none"><div class="card shadow-sm"><div class="card-body">
+                    <h2 class="h5 fw-bold mb-4">Confirmar pedido</h2>
+                    <h3 class="h6 fw-bold">Forma de entrega</h3>
+                    <div class="form-check"><input class="form-check-input" type="radio" name="tipoEntrega" id="retiroTienda" value="retiro" checked></label>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="radio" name="tipoEntrega" id="despachoDomicilio" value="despacho">
+                        <label class="form-check-label" for="despachoDomicilio">Despacho a domicilio</label>
+                    </div>
+                    <div id="contenedorDireccion" class="mb-3 d-none"><label for="direccionDespacho" class="form-label">Dirección de despacho</label>
+                        <input type="text" class="form-control" id="direccionDespacho" placeholder="Ingrese su dirección">
+                    </div>
+                    <h3 class="h6 fw-bold">Forma de pago</h3>
+                    <select id="metodoPagoCarrito" class="form-select mb-3">
+                        <option value="tarjeta">Tarjeta</option>
+                        <option value="transferencia">Transferencia</option>
+                        <option value="efectivo">Efectivo</option>
+                    </select>
+                    <div id="contenedorCuentaCorriente" class="form-check mb-3 d-none">
+                        <input class="form-check-input" type="checkbox" id="usarCuentaCorriente">
+                        <label class="form-check-label" for="usarCuentaCorriente">Pagar mediante cuenta corriente</label>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <span>Subtotal:</span>
+                        <strong id="confirmacionSubtotal">$0</strong>
+                    </div>
+                    <div id="confirmacionDescuentoFila" class="d-flex justify-content-between d-none">
+                        <span>Descuento contratista:</span>
+                        <strong id="confirmacionDescuento">$0</strong>
+                    </div>
+                    <div class="d-flex justify-content-between fs-5 mt-2">
+                        <strong>Total:</strong>
+                        <strong id="confirmacionTotal">$0</strong>
+                    </div>
+                    <button id="btnConfirmarPedido" class="btn btn-success w-100 mt-4"><i class="bi bi-check-circle me-1"></i>
+                        Confirmar pedido
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section id="seccionMisPedidos" class="container pb-5">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                <h2 class="h5 fw-bold mb-4">Mis pedidos</h2>
+                    <div id="sinPedidos" class="text-muted">
+                        No tienes pedidos realizados.
+                    </div>
+                    <div id="contenedorMisPedidos" class="table-responsive d-none">
+                        <table class="table align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Pedido</th>
+                                    <th>Fecha</th>
+                                    <th>Entrega</th>
+                                    <th>Total</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaMisPedidos"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/sesion.js"></script>
+    <script src="assets/js/index.js"></script>
+    <script src="assets/js/carrito.js"></script>
+</body>
+</html>
