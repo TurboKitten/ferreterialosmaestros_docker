@@ -1,4 +1,6 @@
 com\stackertriple\ferreterialosmaestros\dto\response\ProductoResponse.class
+com\stackertriple\ferreterialosmaestros\security\JwtAuthFilter.class
+com\stackertriple\ferreterialosmaestros\security\JwtService.class
 com\stackertriple\ferreterialosmaestros\dto\request\ProductoRequest.class
 com\stackertriple\ferreterialosmaestros\config\DataInitializer.class
 com\stackertriple\ferreterialosmaestros\controller\v1\AuthController$1.class
@@ -9,5 +11,6 @@ com\stackertriple\ferreterialosmaestros\controller\v1\AuthController.class
 com\stackertriple\ferreterialosmaestros\dto\response\SesionResponse.class
 com\stackertriple\ferreterialosmaestros\controller\v1\UsuarioController.class
 com\stackertriple\ferreterialosmaestros\dto\response\UsuarioResponse.class
+com\stackertriple\ferreterialosmaestros\security\JwtAuthEntryPoint.class
 com\stackertriple\ferreterialosmaestros\controller\v1\PedidoController.class
 com\stackertriple\ferreterialosmaestros\controller\v1\PedidoController$1.class

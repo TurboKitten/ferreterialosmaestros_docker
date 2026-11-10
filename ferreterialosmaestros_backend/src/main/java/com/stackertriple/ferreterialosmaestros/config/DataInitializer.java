@@ -8,26 +8,28 @@ import com.stackertriple.ferreterialosmaestros.repository.UsuarioRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 /**
  * MVP: carga datos iniciales si la base está vacía (útil para docker-compose/demo).
- * Ajustar o reemplazar por migraciones/seed seguro en fases posteriores.
+ * Las contraseñas se guardan cifradas con BCrypt (el login soporta además texto plano legado).
  */
 @Configuration
 public class DataInitializer {
 
     @Bean
-    CommandLineRunner initData(UsuarioRepository usuarioRepository, ProductoRepository productoRepository) {
+    CommandLineRunner initData(UsuarioRepository usuarioRepository, ProductoRepository productoRepository,
+                                PasswordEncoder passwordEncoder) {
         return args -> {
             if (usuarioRepository.count() == 0) {
                 usuarioRepository.saveAll(List.of(
-                        user("admin", "Administrador", "admin123", Rol.ADMINISTRADOR, "admin@ferreteria.cl"),
-                        user("aabarca", "Antonia Abarca", "1234", Rol.ADMINISTRADOR, "aabarca@ferreteria.cl"),
-                        user("dgarrid", "Diego Garrido", "1234", Rol.VENDEDOR, "dgarrid@ferreteria.cl"),
-                        user("cliente", "Cliente Demo", "1234", Rol.CLIENTE, "cliente@ferreteria.cl")
+                        user("admin", "Administrador", passwordEncoder.encode("admin123"), Rol.ADMINISTRADOR, "admin@ferreteria.cl"),
+                        user("aabarca", "Antonia Abarca", passwordEncoder.encode("1234"), Rol.ADMINISTRADOR, "aabarca@ferreteria.cl"),
+                        user("dgarrid", "Diego Garrido", passwordEncoder.encode("1234"), Rol.VENDEDOR, "dgarrid@ferreteria.cl"),
+                        user("cliente", "Cliente Demo", passwordEncoder.encode("1234"), Rol.CLIENTE, "cliente@ferreteria.cl")
                 ));
             }
             if (productoRepository.count() == 0) {

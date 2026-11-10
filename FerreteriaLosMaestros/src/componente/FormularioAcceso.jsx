@@ -40,7 +40,7 @@ export default function FormularioAcceso() {
       notificarSesion()
       navigate(destinoSegunRol(sesion.rol))
     } catch (err) {
-      setMensaje({ tipo: 'danger', texto: err.message || 'El usuario o la contraseña son incorrectos.' })
+      setMensaje({ tipo: 'danger', texto: 'El usuario o la contraseña son incorrectos.' })
     }
   }
 

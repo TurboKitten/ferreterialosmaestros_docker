@@ -8,6 +8,8 @@ import com.stackertriple.ferreterialosmaestros.repository.ProductoRepository;
 import com.stackertriple.ferreterialosmaestros.repository.UsuarioRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -31,6 +33,7 @@ public class PedidoController {
     @GetMapping
     public List<Map<String, Object>> listar() {
         return pedidoRepository.findAll().stream()
+                .filter(this::puedeVer)
                 .sorted(Comparator.comparing(Pedido::getId).reversed())
                 .map(this::toResponse)
                 .toList();
@@ -39,6 +42,7 @@ public class PedidoController {
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> obtener(@PathVariable Long id) {
         return pedidoRepository.findById(id)
+                .filter(this::puedeVer)
                 .map(p -> ResponseEntity.ok(toResponse(p)))
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -46,6 +50,7 @@ public class PedidoController {
     @GetMapping("/folio/{folio}")
     public ResponseEntity<Map<String, Object>> obtenerPorFolio(@PathVariable String folio) {
         return pedidoRepository.findByFolio(folio)
+                .filter(this::puedeVer)
                 .map(p -> ResponseEntity.ok(toResponse(p)))
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -135,6 +140,24 @@ public class PedidoController {
         }
         m.put("productos", productos);
         return m;
+    }
+
+    // --- Reglas por rol (EP3): Administrador/Vendedor ven todo; Cliente solo sus pedidos ---
+    private boolean puedeVer(Pedido p) {
+        if (!esClienteActual()) return true;
+        String actual = usernameActual();
+        return p.getUsuario() != null && actual != null && actual.equals(p.getUsuario().getUsername());
+    }
+
+    private boolean esClienteActual() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth != null && auth.getAuthorities().stream()
+                .anyMatch(a -> "ROLE_CLIENTE".equals(a.getAuthority()));
+    }
+
+    private String usernameActual() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth != null ? auth.getName() : null;
     }
 
     private String str(Object o) { return o == null ? null : String.valueOf(o); }

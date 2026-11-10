@@ -126,11 +126,14 @@ export function iniciarSesion(usuario) {
     nombre: usuario.nombre,
     usuario: usuario.usuario,
     rol: usuario.rol,
+    token: usuario.token || null,
   })
 }
+// Login contra la API: devuelve la sesión con token JWT, que queda persistida
+// en localStorage (sobrevive recargas de página hasta que expire el token).
 export async function loginApi(usuario, password) {
   const sesion = await api.post('/v1/auth/login', { usuario, password })
-  iniciarSesion({ nombre: sesion.nombre, usuario: sesion.usuario, rol: sesion.rol })
+  iniciarSesion(sesion)
   return sesion
 }
 export function cerrarSesion() {
