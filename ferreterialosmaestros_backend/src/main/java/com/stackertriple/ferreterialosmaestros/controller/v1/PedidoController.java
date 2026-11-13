@@ -1,11 +1,21 @@
 package com.stackertriple.ferreterialosmaestros.controller.v1;
 
+import com.stackertriple.ferreterialosmaestros.config.OpenApiConfig;
 import com.stackertriple.ferreterialosmaestros.model.entity.DetallePedido;
 import com.stackertriple.ferreterialosmaestros.model.entity.Pedido;
 import com.stackertriple.ferreterialosmaestros.model.entity.Usuario;
 import com.stackertriple.ferreterialosmaestros.repository.PedidoRepository;
 import com.stackertriple.ferreterialosmaestros.repository.ProductoRepository;
 import com.stackertriple.ferreterialosmaestros.repository.UsuarioRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -16,6 +26,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
+@Tag(name = "Pedidos", description = "Registro y consulta de pedidos. Requiere autenticación JWT.")
+@SecurityRequirement(name = OpenApiConfig.SECURITY_SCHEME_NAME)
 @RestController
 @RequestMapping("/api/v1/pedidos")
 public class PedidoController {
@@ -30,6 +42,16 @@ public class PedidoController {
         this.productoRepository = productoRepository;
     }
 
+    @Operation(
+            summary = "Listar pedidos",
+            description = "Devuelve los pedidos visibles para el usuario autenticado: "
+                    + "Administrador y Vendedor ven todos; Cliente solo los propios."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Listado de pedidos",
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = Map.class)))),
+            @ApiResponse(responseCode = "401", description = "No autenticado", content = @Content)
+    })
     @GetMapping
     public List<Map<String, Object>> listar() {
         return pedidoRepository.findAll().stream()
@@ -39,22 +61,77 @@ public class PedidoController {
                 .toList();
     }
 
+    @Operation(
+            summary = "Obtener pedido por ID",
+            description = "Busca un pedido por su identificador. Un Cliente solo puede ver sus propios pedidos."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Pedido encontrado",
+                    content = @Content(schema = @Schema(implementation = Map.class))),
+            @ApiResponse(responseCode = "401", description = "No autenticado", content = @Content),
+            @ApiResponse(responseCode = "404", description = "El pedido no existe o no es visible para el usuario", content = @Content)
+    })
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> obtener(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> obtener(
+            @Parameter(description = "ID interno del pedido", example = "1") @PathVariable Long id) {
         return pedidoRepository.findById(id)
                 .filter(this::puedeVer)
                 .map(p -> ResponseEntity.ok(toResponse(p)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Operation(
+            summary = "Obtener pedido por folio",
+            description = "Busca un pedido por su folio (por ejemplo PED-0001). Un Cliente solo puede ver sus propios pedidos."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Pedido encontrado",
+                    content = @Content(schema = @Schema(implementation = Map.class))),
+            @ApiResponse(responseCode = "401", description = "No autenticado", content = @Content),
+            @ApiResponse(responseCode = "404", description = "El pedido no existe o no es visible para el usuario", content = @Content)
+    })
     @GetMapping("/folio/{folio}")
-    public ResponseEntity<Map<String, Object>> obtenerPorFolio(@PathVariable String folio) {
+    public ResponseEntity<Map<String, Object>> obtenerPorFolio(
+            @Parameter(description = "Folio único del pedido", example = "PED-0001") @PathVariable String folio) {
         return pedidoRepository.findByFolio(folio)
                 .filter(this::puedeVer)
                 .map(p -> ResponseEntity.ok(toResponse(p)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Operation(
+            summary = "Crear pedido",
+            description = """
+                    Registra un pedido y sus líneas de detalle.
+
+                    Ejemplo de cuerpo JSON:
+                    ```json
+                    {
+                      "folio": "PED-0001",
+                      "cliente": "Juan Pérez",
+                      "usuario": "cliente",
+                      "estado": "pendiente",
+                      "entrega": "despacho",
+                      "direccionDespacho": "Av. Siempre Viva 742",
+                      "metodoPago": "efectivo",
+                      "estadoPago": "pendiente",
+                      "origen": "web",
+                      "subtotal": 17980,
+                      "descuento": 0,
+                      "total": 17980,
+                      "productos": [
+                        { "codigo": "FER-001", "cantidad": 2, "precioUnitario": 8990, "subtotal": 17980 }
+                      ]
+                    }
+                    ```
+                    Si no se envía `folio`, se genera automáticamente.
+                    """
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Pedido creado",
+                    content = @Content(schema = @Schema(implementation = Map.class))),
+            @ApiResponse(responseCode = "401", description = "No autenticado", content = @Content)
+    })
     @PostMapping
     @SuppressWarnings("unchecked")
     public ResponseEntity<Map<String, Object>> crear(@RequestBody Map<String, Object> req) {

@@ -5,6 +5,12 @@ import com.stackertriple.ferreterialosmaestros.dto.response.SesionResponse;
 import com.stackertriple.ferreterialosmaestros.model.entity.Usuario;
 import com.stackertriple.ferreterialosmaestros.repository.UsuarioRepository;
 import com.stackertriple.ferreterialosmaestros.security.JwtService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +22,7 @@ import java.util.Map;
  * Login con JWT (EP3): valida credenciales y devuelve un token firmado
  * que el frontend debe enviar en "Authorization: Bearer <token>".
  */
+@Tag(name = "Autenticación", description = "Login y emisión del token JWT")
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -30,6 +37,17 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Operation(
+            summary = "Iniciar sesión",
+            description = "Valida las credenciales y devuelve los datos de la sesión junto con un token JWT. "
+                    + "El token debe enviarse en el header 'Authorization: Bearer <token>'."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Credenciales válidas: sesión y token JWT",
+                    content = @Content(schema = @Schema(implementation = SesionResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Faltan usuario o contraseña", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Credenciales inválidas", content = @Content)
+    })
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest req) {
         String username = req.resolvedUsername();

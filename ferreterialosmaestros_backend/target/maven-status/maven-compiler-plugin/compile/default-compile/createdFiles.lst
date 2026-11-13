@@ -13,4 +13,5 @@ com\stackertriple\ferreterialosmaestros\controller\v1\UsuarioController.class
 com\stackertriple\ferreterialosmaestros\dto\response\UsuarioResponse.class
 com\stackertriple\ferreterialosmaestros\security\JwtAuthEntryPoint.class
 com\stackertriple\ferreterialosmaestros\controller\v1\PedidoController.class
+com\stackertriple\ferreterialosmaestros\config\OpenApiConfig.class
 com\stackertriple\ferreterialosmaestros\controller\v1\PedidoController$1.class

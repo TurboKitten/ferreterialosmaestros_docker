@@ -1,0 +1,15 @@
+# Compilados / build (Maven)
+target/
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# Sistema / logs
+*.log
+.DS_Store
+Thumbs.db
