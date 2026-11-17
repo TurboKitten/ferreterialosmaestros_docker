@@ -36,10 +36,12 @@ public class DataInitializer {
                 productoRepository.saveAll(List.of(
                         prod("FER-001", "Martillo Profesional", "manuales", "12990", 15),
                         prod("FER-002", "Juego de Destornilladores", "manuales", "9990", 20),
-                        prod("FER-003", "Taladro Percutor 750W", "electricas", "59990", 8),
-                        prod("FER-004", "Sierra Circular 1400W", "electricas", "79990", 5),
-                        prod("FER-005", "Cemento 25kg", "materiales", "5990", 50),
-                        prod("FER-006", "Pintura Látex 1 Galón", "pinturas", "18990", 12)
+                        prod("FER-003", "Taladro Eléctrico", "electricas", "49990", 8),
+                        prod("FER-004", "Sierra Circular", "electricas", "69990", 6),
+                        prod("FER-005", "Cinta Métrica 5 Metros", "medicion", "4990", 18),
+                        prod("FER-006", "Cemento 25 Kg", "construccion", "5990", 50),
+                        prod("FER-007", "Guantes de Trabajo", "seguridad", "3490", 30),
+                        prod("FER-008", "Alicate Profesional", "manuales", "7990", 12)
                 ));
             }
         };

@@ -39,7 +39,7 @@ export default function FormularioAcceso() {
       const sesion = await loginApi(usuario.trim(), password)
       notificarSesion()
       navigate(destinoSegunRol(sesion.rol))
-    } catch (err) {
+    } catch {
       setMensaje({ tipo: 'danger', texto: 'El usuario o la contraseña son incorrectos.' })
     }
   }

@@ -41,7 +41,12 @@ function mapProductoApi(p) {
 }
 
 function mergeProductoImagenes(actuales, nuevos) {
-  const porCodigo = new Map((actuales || []).map((p) => [p.codigo, p]))
+  // Combina los datos iniciales con el caché actual: si el caché viejo no tiene
+  // imagen/mínimo para un código (p. ej. productos nuevos del backend), se usa
+  // el dato inicial como respaldo. El caché actual tiene prioridad.
+  const porCodigo = new Map(
+    [...(productosIniciales || []), ...(actuales || [])].map((p) => [p.codigo, p]),
+  )
   return nuevos.map((p) => {
     const prev = porCodigo.get(p.codigo)
     return { ...(prev || {}), ...p, imagen: p.imagen ?? prev?.imagen, minimo: p.minimo ?? prev?.minimo }

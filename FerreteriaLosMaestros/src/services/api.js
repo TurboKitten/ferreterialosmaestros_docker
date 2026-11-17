@@ -26,7 +26,7 @@ async function request(path, options = {}) {
 
   const res = await fetch(`${BASE}${path}`, { ...options, headers })
   const text = await res.text()
-  let data = null
+  let data
   try { data = text ? JSON.parse(text) : null } catch { data = text }
 
   if (!res.ok) {

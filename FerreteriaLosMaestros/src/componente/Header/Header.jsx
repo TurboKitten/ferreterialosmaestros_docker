@@ -1,9 +1,50 @@
-import { Link, NavLink } from 'react-router'
+import { useEffect, useRef, useState } from 'react'
+import { Link, NavLink, useLocation } from 'react-router'
 import { esRolCliente } from '../../services/almacen'
 
 export default function Header({ sesion, onCerrarSesion }) {
   const estaConectado = Boolean(sesion)
   const rol = sesion ? sesion.rol?.toLowerCase() : null
+  const [menuAbierto, setMenuAbierto] = useState(false)
+  const [contextoMenu, setContextoMenu] = useState(null)
+  const menuRef = useRef(null)
+  const location = useLocation()
+
+  // El menú solo se considera visible si la ruta y el usuario no cambiaron
+  // desde que se abrió. Así se cierra solo al navegar o cambiar de sesión,
+  // sin llamar setState dentro de un useEffect.
+  const contextoActual = `${location.pathname}|${sesion?.usuario ?? ''}`
+  const menuVisible = menuAbierto && contextoMenu === contextoActual
+
+  const alternarMenu = () => {
+    if (menuVisible) {
+      setMenuAbierto(false)
+      return
+    }
+    setContextoMenu(contextoActual)
+    setMenuAbierto(true)
+  }
+
+  // Cierra el menú al hacer clic fuera o presionar Escape.
+  useEffect(() => {
+    if (!menuVisible) return
+
+    const alHacerClicFuera = (evento) => {
+      if (menuRef.current && !menuRef.current.contains(evento.target)) {
+        setMenuAbierto(false)
+      }
+    }
+    const alPresionarEscape = (evento) => {
+      if (evento.key === 'Escape') setMenuAbierto(false)
+    }
+
+    document.addEventListener('mousedown', alHacerClicFuera)
+    document.addEventListener('keydown', alPresionarEscape)
+    return () => {
+      document.removeEventListener('mousedown', alHacerClicFuera)
+      document.removeEventListener('keydown', alPresionarEscape)
+    }
+  }, [menuVisible])
 
   const destinoPorRol = () => {
     if (rol === 'administrador') return '/admin'
@@ -75,17 +116,23 @@ export default function Header({ sesion, onCerrarSesion }) {
 
           {/*acceso / menú de usuario según la sesión*/}
           {estaConectado ? (
-            <div className="dropdown">
+            <div className="dropdown" ref={menuRef}>
               <button
                 type="button"
                 className={claseBoton()}
                 id="btnSesion"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
+                aria-haspopup="true"
+                aria-expanded={menuVisible}
+                aria-controls="menuSesion"
+                onClick={alternarMenu}
               >
                 <i className={`bi ${iconoBoton()} me-1`} /> {sesion.nombre}
               </button>
-              <ul className="dropdown-menu dropdown-menu-end show" aria-labelledby="btnSesion">
+              <ul
+                id="menuSesion"
+                className={`dropdown-menu dropdown-menu-end ${menuVisible ? 'show' : ''}`}
+                aria-labelledby="btnSesion"
+              >
                 <li>
                   <span className="dropdown-item-text">
                     <strong>{sesion.nombre}</strong>
@@ -94,17 +141,17 @@ export default function Header({ sesion, onCerrarSesion }) {
                   </span>
                 </li>
                 <li>
-                  <Link to="/" className="dropdown-item">
+                  <Link to="/" className="dropdown-item" onClick={() => setMenuAbierto(false)}>
                     <i className="bi bi-house me-2" /> Volver al menú
                   </Link>
                 </li>
                 <li>
                   {esRolCliente(sesion.rol) || rol === 'cliente' ? (
-                    <Link to="/carrito" className="dropdown-item">
+                    <Link to="/carrito" className="dropdown-item" onClick={() => setMenuAbierto(false)}>
                       <i className="bi bi-cart me-2" /> Mi carrito
                     </Link>
                   ) : (
-                    <Link to={destinoPorRol()} className="dropdown-item">
+                    <Link to={destinoPorRol()} className="dropdown-item" onClick={() => setMenuAbierto(false)}>
                       <i className="bi bi-shop me-2" /> {etiquetaBoton()}
                     </Link>
                   )}
@@ -116,7 +163,10 @@ export default function Header({ sesion, onCerrarSesion }) {
                   <button
                     type="button"
                     className="dropdown-item text-danger"
-                    onClick={onCerrarSesion}
+                    onClick={() => {
+                      setMenuAbierto(false)
+                      onCerrarSesion?.()
+                    }}
                   >
                     <i className="bi bi-box-arrow-right me-2" /> Cerrar sesión
                   </button>
