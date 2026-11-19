@@ -1,0 +1,22 @@
+# Variables de entorno reales (nunca subir)
+.env
+.env.*
+!.env.example
+
+# Backend: compilados de Maven
+ferreterialosmaestros_backend/target/
+*.class
+
+# Frontend: dependencias, build y reportes
+FerreteriaLosMaestros/node_modules/
+FerreteriaLosMaestros/dist/
+FerreteriaLosMaestros/coverage/
+FerreteriaLosMaestros/playwright-report/
+FerreteriaLosMaestros/test-results/
+
+# Sistema / editores / logs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
